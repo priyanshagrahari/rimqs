@@ -1,9 +1,9 @@
 <?php
   echo '
-  <head>
-    <h1 class="heading">Railway Query System</h1>
+    <h1 class="heading">
+    <a href="base.php">Railway Query System</a>
+    </h1>
     <title>RQS</title>
     <link rel="stylesheet" href="style.css">
-  </head>
   ';
 ?>

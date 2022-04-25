@@ -19,6 +19,18 @@ body {
   border-width: 2%;
 }
 
+.heading a {
+  text-decoration: none;
+}
+
+.heading a:visited {
+  color:#000;
+}
+
+.heading a:active {
+  color:#000;
+}
+
 .side-nav {
   width: 15%;
   position: fixed;
@@ -32,7 +44,9 @@ body {
   text-decoration: none;
   font-size: 25px;
   padding: 10% 5%;
-  margin: 0 0;
+  border-style: solid;
+  border-color: #000;
+  border-width: 2%;
   color: #818181;
   display: block;
 }
@@ -40,6 +54,7 @@ body {
 .side-nav a:hover {
   color: rgb(11, 10, 11);
   background-color: rgb(228, 228, 0);
+  border-color: rgb(228, 228, 0);
 }
 
 .main {
@@ -49,12 +64,30 @@ body {
   color: azure;
 }
 
-@media screen and (max-height: 450px) {
-  .side-nav {
-    padding-top: 15px;
-  }
+.current {
+  color:#000 !important;
+  border-style: solid;
+  border-color: #000 !important;
+}
 
-  .side-nav a {
-    font-size: 18px;
-  }
+table {
+  width:100%;
+  text-align: center;
+  border-style: solid;
+  border-color: rgb(228, 228, 0);
+  border-collapse: collapse;
+}
+
+th {
+  padding: 1.8%;
+  background-color: rgb(228, 228, 0);
+  color: black;
+}
+
+tr {
+  height: 40px;
+}
+
+tr:nth-of-type(even) {
+  background-color: #252525;
 }
