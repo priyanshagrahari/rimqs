@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <h1 class="heading">Welcome to RQS</h1>
-    <title>RQS</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
+  <?php include("header.php"); ?>
 
   <body>
     <?php include("sidebar.php"); ?>
