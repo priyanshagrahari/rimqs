@@ -1,36 +1,31 @@
 <?php
 $currentPage= $_SERVER['SCRIPT_NAME'];
 echo ' 
-<div class="side-nav">
-    <li>
-      <a title="Navigate to the STATIONS section" href="stations.php"';
-    echo ($currentPage == '/rqs/stations.php') ? 'class="current"' : '';
-    echo '>STATIONS</a>
-    </li>
+<div class="side-nav">' .
+    (($currentPage == '/rqs/stations.php') ? '<li class="current">' : '<li> <a title="Navigate to the STATIONS section" href="stations.php">') .
+    'STATIONS' .
+    (($currentPage == '/rqs/stations.php') ? '' : '</a>') .
+    '</li>' . 
 
-    <li>
-      <a title="Navigate to the TRACKS section" href="tracks.php"';
-    echo ($currentPage == '/rqs/tracks.php') ? 'class="current"' : '';
-    echo '>TRACKS</a>
-    </li>
+    (($currentPage == '/rqs/tracks.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRACKS section" href="tracks.php">') .
+    'TRACKS' .
+    (($currentPage == '/rqs/tracks.php') ? '' : '</a>') .
+    '</li>' .
+    
+    (($currentPage == '/rqs/trains.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRAINS section" href="trains.php">') .
+    'TRAINS' .
+    (($currentPage == '/rqs/trains.php') ? '' : '</a>') .
+    '</li>' .
 
-    <li>
-      <a title="Navigate to the TRAINS section" href="trains.php"';
-    echo ($currentPage == '/rqs/trains.php') ? 'class="current"' : '';
-    echo '>TRAINS</a>
-    </li>
-
-    <li>
-      <a title="Navigate to the SCHEDULE section" href="schedule.php"';
-    echo ($currentPage == '/rqs/schedule.php') ? 'class="current"' : '';
-    echo '>SCHEDULE</a>
-    </li>
-
-    <li>
-      <a title="Navigate to the ROUTE section" href="route.php"';
-    echo ($currentPage == '/rqs/route.php') ? 'class="current"' : '';
-    echo '>ROUTE</a>
-    </li>
+    (($currentPage == '/rqs/schedule.php') ? '<li class="current">' : '<li> <a title="Navigate to the SCHEDULE section" href="schedule.php">') .
+    'SCHEDULE' .
+    (($currentPage == '/rqs/schedule.php') ? '' : '</a>') .
+    '</li>' .
+    
+    (($currentPage == '/rqs/route.php') ? '<li class="current">' : '<li> <a title="Navigate to the ROUTE section" href="route.php">') .
+    'ROUTE' .
+    (($currentPage == '/rqs/route.php') ? '' : '</a>') .
+    '</li>
 </div>
 ';
 ?>
