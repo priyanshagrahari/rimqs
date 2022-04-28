@@ -14,7 +14,7 @@
           <th>Train Id<th>
           <th>Track Id<th>
           <th>Time<th>
-        <tr>
+        </tr>
         <?php
          include("connect.php");
          $stmt=$conn->query('SELECT * FROM route');
