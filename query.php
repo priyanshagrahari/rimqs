@@ -50,6 +50,49 @@
           }
           $conn->close();
         }
+        if ($_POST['table'] == "train") {
+          echo "
+          <tr>
+            <th>Train ID</th>
+            <th>Train Name</th>
+            <th>Number of Cars</th>
+            <th>Number of Seats</th>
+            <th>Service Type</th>
+          </tr> ";
+          include("connect.php");
+          $s_q = "SELECT * FROM train WHERE ";
+          if ($_POST['sea'] == "id") {
+            $s_q = $s_q . " train.train_id = " . $_POST['term'];
+          }
+          if ($_POST['sea'] == "name") {
+            $s_q = $s_q . " train.train_name LIKE '%" . $_POST['term'] . "%'";
+          }
+          if ($_POST['sea'] == "car_more") {
+            $s_q = $s_q . " train.num_cars > '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "car_less") {
+            $s_q = $s_q . " train.num_cars < '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "seat_more") {
+            $s_q = $s_q . " train.num_seats > '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "seat_less") {
+            $s_q = $s_q . " train.num_seats < '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "ser") {
+            $s_q = $s_q . " train.service_type LIKE '%" . $_POST['term'] . "%'";
+          }
+          $stmt = $conn->query($s_q);
+          if ($stmt->num_rows > 0) {
+            while ($row = $stmt->fetch_assoc()) {
+              echo "<tr><td>" . $row["train_id"] . "</td><td>" . $row["train_name"] . "</td>
+              <td>" . $row["num_cars"] . "</td><td>" .  $row["num_seats"] . "</td><td>". $row["service_type"] . "</td>
+              </tr>
+              ";
+            }
+          }
+          $conn->close();
+        }
       ?>
       </table>
     </div>

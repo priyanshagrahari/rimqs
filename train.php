@@ -15,12 +15,14 @@
         <label for="modify" class="popup_button">MODIFY</label>
         <input type="checkbox" id="delete" style="display:none;">
         <label for="delete" class="popup_button">DELETE</label>
+        <input type="checkbox" id="search" style="display:none;">
+        <label for="search" class="popup_button">SEARCH</label>
         
         <!-- form for insert -->
         <div class="popup_content i">
           <label for="insert" class="close_button" title="Close">&#x2BBE;</label>
           Enter data for the new entry: 
-          <form action="trains.php" method="post"> <!-- form starts -->
+          <form action="" method="post"> <!-- form starts -->
             <div class="data_item">
               <label>Train ID</label>
               <input type="number" required name="t_id">
@@ -189,12 +191,13 @@
             <div class="data_item">
               <label>Field</label>
               <select required name="sea">
-                <option value="id">Station ID</option>
-                <option value="name">Station Name</option>
-                <option value="num_more">Number of Platforms (more than)</option>
-                <option value="num_less">Number of Platforms (less than)</option>
-                <option value="isop">Is Open</option>
-                <option value="iscl">Is Closed</option>
+                <option value="id">Train ID</option>
+                <option value="name">Train Name</option>
+                <option value="car_more">Number of Cars (more than)</option>
+                <option value="car_less">Number of Cars (less than)</option>
+                <option value="seat_more">Number of Seats (more than)</option>
+                <option value="seat_less">Number of Seats (less than)</option>
+                <option value="ser">Service Type</option>
               </select>
             </div>
             <div class="data_item">
