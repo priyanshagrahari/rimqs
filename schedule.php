@@ -144,13 +144,13 @@
                 include("connect.php");
                 try {
                   $inse = $conn->query("UPDATE `schedule`
-                  SET`arrival_time`=$time,`halt_duration`=$duration
-                  WHERE`schedule`.`train_id`=$id_1 AND`schedule`.`station_id`=$id_2");
+                  SET `arrival_time` = '$time', `halt_duration` = '$duration' 
+                  WHERE (`schedule`.`train_id` = $id_1 AND `schedule`.`station_id` = $id_2)");
                   $conn->close();
                 } catch (Exception $e) {
                   echo "<br>Could not modify.";
                   $conn->close();
-                }
+                } 
               } 
             ?>
           </form>
