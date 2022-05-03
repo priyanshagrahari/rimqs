@@ -85,6 +85,13 @@
   border-bottom-width: 2px;
 }
 
+.data_item select {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background-color: #000;
+}
+
 button {
   height: 100%;
   width: 100%;

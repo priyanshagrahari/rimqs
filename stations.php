@@ -60,6 +60,7 @@
                     Could not insert the entered data.<br>
                     Please check if the station id is unique or not.
                   </div>";
+                  $conn->close();
                 }
               } 
             ?>
@@ -73,7 +74,18 @@
           <form action="" method="post">
             <div class="data_item">
               <label>Station ID</label>
-              <input type="number" required name="s_id">
+              <select required name="s_id">
+                <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT station_id FROM station');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
             </div>
             <div class="data_item">
               <label>Station Name</label>
@@ -88,10 +100,10 @@
               <input type="checkbox" name="is_o">
             </div>
             <div class="insert_button">
-              <button name="insert">INSERT</button>
+              <button name="modify">MODIFY</button>
             </div>
             <?php             
-              if(isset($_POST['insert'])) {
+              if(isset($_POST['modify'])) {
                 $id = $_POST['s_id'];
                 $name = $_POST['s_name'];
                 $num = $_POST['n_plat'];
@@ -99,14 +111,58 @@
                 else { $is_op = '0'; }
                 include("connect.php");
                 try {
-                  $inse = $conn->query("INSERT INTO station (station_id, station_name, num_platforms, is_open) 
-                  VALUES ('$id', '$name', '$num', '$is_op')");
+                  $inse = $conn->query("UPDATE `station` 
+                  SET `station_name` = '$name', `num_platforms` = '$num', `is_open` = '$is_op' 
+                  WHERE `station`.`station_id` = $id");
                   $conn->close();
-                  header("Location:stations.php");
-                  exit;
                 } catch (Exception $e) {
-                  echo "<br>Could not insert the entered data.<br>
-                  Please check if the station id is unique or not.";
+                  echo "<br>Could not modify.";
+                  $conn->close();
+                }
+              } 
+            ?>
+          </form>
+        </div>
+
+        <!-- form for delete -->
+        <div class="popup_content d">
+          <label for="delete" class="close_button" title="Close">&#x2BBE;</label>
+          Select the Station ID which you want to delete: 
+          <form action="" method="post">
+            <div class="data_item">
+              <label>Station ID</label>
+              <select required name="s_id">
+                <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT station_id FROM station');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="insert_button">
+              <button name="modify">DELETE</button>
+            </div>
+            <?php             
+              if(isset($_POST['modify'])) {
+                $id = $_POST['s_id'];
+                include("connect.php");
+                try {
+                  // delete from route
+                  $inse = $conn->query("DELETE FROM route 
+                  WHERE `route`.`track_id` = `track`.`track_id`
+                  AND (`track`.`station_id_1` = $id OR `track.station_id_2` = $id)");
+                  // delete from track
+                  $inse = $conn->query("DELETE FROM track 
+                  WHERE `track`.`station_id_1` = $id OR `track.station_id_2` = $id");
+                  $conn->close();
+                } catch (Exception $e) {
+                  echo "<br>Could not delete.";
+                  $conn->close();
                 }
               } 
             ?>
