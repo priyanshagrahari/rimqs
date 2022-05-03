@@ -39,8 +39,12 @@
             </div>
             <div class="data_item">
               <label>Service Type</label>
-              <input type="text" required name="s_type">
-          </div>
+              <select name="s_type">
+                <option value="Passenger">Passenger</option>
+                <option value="Express">Express</option>
+                <option value="Special">Special</option>
+              </select>
+            </div>
             <div class="insert_button">
               <button name="insert">INSERT</button>
             </div>
@@ -105,14 +109,17 @@
             </div>
             <div class="data_item">
               <label>Service Type</label>
-              <input type="text" required name="s_type">
-          </div>
-          
+              <select name="s_type">
+                <option value="Passenger">Passenger</option>
+                <option value="Express">Express</option>
+                <option value="Special">Special</option>
+              </select>
+            </div>
             <div class="insert_button">
               <button name="modify">MODIFY</button>
             </div>
             <?php             
-              if(isset($_POST['insert'])) {
+              if(isset($_POST['modify'])) {
                 $id = $_POST['t_id'];
                 $name = $_POST['t_name'];
                 $num_cars = $_POST['n_cars'];
@@ -121,8 +128,8 @@
                 include("connect.php");
                 try {
                   $inse = $conn->query("UPDATE `train`
-                   SET `train_name` = 'tyu', `num_cars` = '6', `num_seats` = '90', `service_type` = 'express' 
-                   WHERE `train`.`train_id` = 2");
+                   SET `train_name` = '$name', `num_cars` = '$num_cars', `num_seats` = '$num_seats', `service_type` = '$type' 
+                   WHERE `train`.`train_id` = $id");
                   $conn->close();
                 } catch (Exception $e) {
                   echo "<br>Could not modify.";
