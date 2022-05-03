@@ -22,7 +22,7 @@
         <div class="popup_content i">
           <label for="insert" class="close_button" title="Close">&#x2BBE;</label>
           Enter data for the new entry: 
-          <form action="stations.php" method="post"> <!-- form starts -->
+          <form action="" method="post"> <!-- form starts -->
             <div class="data_item">
               <label>Station ID</label>
               <input type="number" required name="s_id">
