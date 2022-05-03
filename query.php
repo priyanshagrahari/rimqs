@@ -137,6 +137,75 @@
           }
           $conn->close();
         }
+
+        if ($_POST['table'] == "schedule") {
+          echo "
+          <tr>
+            <th>Train</th>
+            <th>Station</th>
+            <th>Arrival Time</th>
+            <th>Halt Duration</th>
+          </tr> ";
+          include("connect.php");
+          $s_q = "SELECT DISTINCT schedule.train_id, schedule.station_id, arrival_time, halt_duration FROM schedule, train, station WHERE ";
+          if ($_POST['sea'] == "tn") {
+            $s_q = $s_q . "schedule.train_id = train.train_id AND train.train_name LIKE '%" . $_POST['term'] . "%'";
+          }
+          if ($_POST['sea'] == "tid") {
+            $s_q = $s_q . "schedule.train_id = " . $_POST['term'];
+          }
+          if ($_POST['sea'] == "sn") {
+            $s_q = $s_q . "schedule.station_id = station.station_id AND station.station_name LIKE '%" . $_POST['term'] . "%'";
+          }
+          if ($_POST['sea'] == "sid") {
+            $s_q = $s_q . "schedule.station_id = '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "teq") {
+            $s_q = $s_q . "schedule.arrival_time = '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "tbe") {
+            $s_q = $s_q . "schedule.arrival_time < '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "taf") {
+            $s_q = $s_q . "schedule.arrival_time > '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "heq") {
+            $s_q = $s_q . "schedule.halt_duration = '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "hle") {
+            $s_q = $s_q . "schedule.halt_duration < '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "hge") {
+            $s_q = $s_q . "schedule.halt_duration > '" . $_POST['term'] . "'";
+          }
+          $stmt = $conn->query($s_q);
+          if ($stmt->num_rows > 0) {
+            while ($row = $stmt->fetch_assoc()) {
+              $stmt_t = $conn->query('SELECT train_id, train_name FROM train');
+              $stmt_s = $conn->query('SELECT station_id, station_name FROM station');
+              $tname = '';
+              $sname = '';
+              while ($row_t = $stmt_t->fetch_assoc()) {
+                if ($row['train_id'] == $row_t['train_id']) {
+                  $tname = $row_t['train_name'];
+                  break;
+                }
+              }
+              while ($row_s = $stmt_s->fetch_assoc()) {
+                if ($row['station_id'] == $row_s['station_id']) {
+                  $sname = $row_s['station_name'];
+                  break;
+                }
+              }
+              echo "<tr><td>" . $tname . ' (' . $row["train_id"] . ")</td><td>" . 
+              $sname . ' (' . $row["station_id"] . ")</td><td>" . $row["arrival_time"] . "</td>
+              <td>" . $row["halt_duration"] . "</td>
+              </tr>
+              ";
+            }
+          }
+          $conn->close();
+        }
       ?>
       </table>
     </div>

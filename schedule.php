@@ -88,27 +88,35 @@
             ?>
           </form>
         </div>
+
         <!-- form for modify -->
-       <div class="popup_content m">
+        <div class="popup_content m">
           <label for="modify" class="close_button" title="Close">&#x2BBE;</label>
-          Select the Train ID and Station ID which you want to modify:
+          Select the Train ID and Arrival time pair for the entry which you want to modify:
           <form action="" method="post"> 
             <div class="data_item">
-              <label>Train ID</label>
-              <select required name="t_id">
+              <label>Train ID, Arrival Time</label>
+              <select required name="id">
               <?php 
                   include("connect.php");
-                  $stmt = $conn->query('SELECT * FROM train');
+                  $stmt = $conn->query('SELECT train_id, arrival_time FROM schedule');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['train_id'] . ">" . $row['train_name'] . ' (' . $row['train_id'] . ")</option>
+                      $stmt_t = $conn->query('SELECT * FROM train');
+                      while ($row_t = $stmt_t->fetch_assoc()) {
+                        if ($row['train_id'] == $row_t['train_id']) {
+                          $tname = $row_t['train_name'];
+                          break;
+                        }
+                      }
+                      echo "<option value=\"schedule.train_id='" . $row['train_id'] . "' AND schedule.arrival_time='" . 
+                      $row['arrival_time'] . "'\">" . $tname . ' (' . $row['train_id'] . "), " . $row['arrival_time'] . "</option>
                       ";
                     }
                   }
                 ?>
               </select>
             </div>
-
             <div class="data_item">
               <label>Station ID</label>
               <select required name="s_id">
@@ -125,10 +133,6 @@
               </select>
             </div>
             <div class="data_item">
-              <label>Arrival Time</label>
-              <input type="time" required name="a_time">
-            </div>
-            <div class="data_item">
               <label>Halt Duration</label>
               <input type="time" requied name="h_duration">
             </div>
@@ -137,15 +141,14 @@
             </div>
             <?php 
               if(isset($_POST['modify'])) {
-                $id_1 = $_POST['t_id'];
-                $id_2= $_POST['s_id'];
-                $time= date("H:i:s", strtotime($_POST['a_time']));
+                $cond = $_POST['id'];
+                $stn = $_POST['s_id'];
                 $duration= date("H:i:s",strtotime($_POST['h_duration']));
                 include("connect.php");
                 try {
                   $inse = $conn->query("UPDATE `schedule`
-                  SET `arrival_time` = '$time', `halt_duration` = '$duration' 
-                  WHERE (`schedule`.`train_id` = $id_1 AND `schedule`.`station_id` = $id_2)");
+                  SET `station_id` = '$stn', `halt_duration` = '$duration' 
+                  WHERE ($cond)");
                   $conn->close();
                 } catch (Exception $e) {
                   echo "<br>Could not modify.";
@@ -156,8 +159,85 @@
           </form>
         </div>
         
+        <!-- form for delete -->
+        <div class="popup_content d">
+          <label for="delete" class="close_button" title="Close">&#x2BBE;</label>
+          Select the Train ID and Arrival time pair for the entry which you want to delete: 
+          <form action="" method="post">
+            <div class="data_item">
+              <label>Train ID, Arrival Time</label>
+              <select required name="id">
+              <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT train_id, arrival_time FROM schedule');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      $stmt_t = $conn->query('SELECT * FROM train');
+                      while ($row_t = $stmt_t->fetch_assoc()) {
+                        if ($row['train_id'] == $row_t['train_id']) {
+                          $tname = $row_t['train_name'];
+                          break;
+                        }
+                      }
+                      echo "<option value=\"schedule.train_id='" . $row['train_id'] . "' AND schedule.arrival_time='" . 
+                      $row['arrival_time'] . "'\">" . $tname . ' (' . $row['train_id'] . "), " . $row['arrival_time'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="insert_button">
+              <button name="delete">DELETE</button>
+            </div>
+            <?php             
+              if(isset($_POST['delete'])) {
+                $cond = $_POST['id'];
+                include("connect.php");
+                try {
+                  $inse = $conn->query("DELETE FROM schedule 
+                  WHERE ($cond)");
+                  $conn->close();
+                } catch (Exception $e) {
+                  echo "<br>Could not delete.";
+                  $conn->close();
+                }
+              } 
+            ?>
+          </form>
+        </div>
 
-
+        <!-- form for search -->
+        <div class="popup_content s">
+          <label for="search" class="close_button" title="Close">&#x2BBE;</label>
+          Select the field you want search for: 
+          <form action="query.php" method="post">
+            <input type="text" value="schedule" name="table" style="display:none;">
+            <div class="data_item">
+              <label>Field</label>
+              <select required name="sea">
+                <option value="tn">Train (Name)</option>
+                <option value="tid">Train (ID)</option>
+                <option value="sn">Station (Name)</option>
+                <option value="sid">Station (ID)</option>
+                <option value="teq">Arrival Time (equal to)</option>
+                <option value="tbe">Arrival Time (before)</option>
+                <option value="taf">Arrival Time (after)</option>
+                <option value="heq">Halt Duration (equal to)</option>
+                <option value="hle">Halt Duration (less than)</option>
+                <option value="hge">Halt Duration (greater than)</option>
+              </select>
+            </div>
+            <div class="data_item">
+              <label>Value</label>
+              <input type="text" required name="term">
+            </div>
+            <div class="insert_button">
+              <button name="search">SEARCH</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <table>
         <tr>
