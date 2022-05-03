@@ -145,20 +145,15 @@
               </select>
             </div>
             <div class="insert_button">
-              <button name="modify">DELETE</button>
+              <button name="delete">DELETE</button>
             </div>
             <?php             
-              if(isset($_POST['modify'])) {
+              if(isset($_POST['delete'])) {
                 $id = $_POST['s_id'];
                 include("connect.php");
                 try {
-                  // delete from route
-                  $inse = $conn->query("DELETE FROM route 
-                  WHERE `route`.`track_id` = `track`.`track_id`
-                  AND (`track`.`station_id_1` = $id OR `track.station_id_2` = $id)");
-                  // delete from track
-                  $inse = $conn->query("DELETE FROM track 
-                  WHERE `track`.`station_id_1` = $id OR `track.station_id_2` = $id");
+                  $inse = $conn->query("DELETE FROM station 
+                  WHERE `station`.`station_id` = $id");
                   $conn->close();
                 } catch (Exception $e) {
                   echo "<br>Could not delete.";

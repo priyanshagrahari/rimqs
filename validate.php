@@ -22,8 +22,8 @@
       PRIMARY KEY (`track_id`),
       KEY `stn1` (`station_id_1`),
       KEY `stn2` (`station_id_2`),
-      CONSTRAINT `stn1` FOREIGN KEY (`station_id_1`) REFERENCES `station` (`station_id`),
-      CONSTRAINT `stn2` FOREIGN KEY (`station_id_2`) REFERENCES `station` (`station_id`)
+      CONSTRAINT `stn1` FOREIGN KEY (`station_id_1`) REFERENCES `station` (`station_id`) ON DELETE CASCADE,
+      CONSTRAINT `stn2` FOREIGN KEY (`station_id_2`) REFERENCES `station` (`station_id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $stmt->execute();
 
@@ -47,8 +47,8 @@
       PRIMARY KEY (`train_id`,`arrival_time`),
       KEY `stid` (`station_id`),
       KEY `trid` (`train_id`) USING BTREE,
-      CONSTRAINT `stid` FOREIGN KEY (`station_id`) REFERENCES `station` (`station_id`),
-      CONSTRAINT `trid` FOREIGN KEY (`train_id`) REFERENCES `train` (`train_id`)
+      CONSTRAINT `stid` FOREIGN KEY (`station_id`) REFERENCES `station` (`station_id`) ON DELETE CASCADE,
+      CONSTRAINT `trid` FOREIGN KEY (`train_id`) REFERENCES `train` (`train_id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $stmt->execute();
 
@@ -60,8 +60,8 @@
       PRIMARY KEY (`train_id`,`track_id`,`time`),
       KEY `trid` (`train_id`),
       KEY `trkid` (`track_id`),
-      CONSTRAINT `hehe` FOREIGN KEY (`train_id`) REFERENCES `train` (`train_id`),
-      CONSTRAINT `trkid` FOREIGN KEY (`track_id`) REFERENCES `track` (`track_id`)
+      CONSTRAINT `hehe` FOREIGN KEY (`train_id`) REFERENCES `train` (`train_id`) ON DELETE CASCADE,
+      CONSTRAINT `trkid` FOREIGN KEY (`track_id`) REFERENCES `track` (`track_id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $stmt->execute();
     $stmt->close();

@@ -34,6 +34,9 @@
 #modify:checked ~ .m {
   display: block;
 }
+#delete:checked ~ .d {
+  display: block;
+}
 
 .error_box {
   display: block;
