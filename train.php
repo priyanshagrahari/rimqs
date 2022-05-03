@@ -20,7 +20,7 @@
         <div class="popup_content i">
           <label for="insert" class="close_button" title="Close">&#x2BBE;</label>
           Enter data for the new entry: 
-          <form action="trains.php" method="post"> <!-- form starts -->
+          <form action="" method="post"> <!-- form starts -->
             <div class="data_item">
               <label>Train ID</label>
               <input type="number" required name="t_id">

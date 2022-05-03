@@ -156,6 +156,46 @@
               ?>
             </form>
           </div>
+           <!-- form for delete -->
+           <div class="popup_content d">
+          <label for="delete" class="close_button" title="Close">&#x2BBE;</label>
+          Select the Track Id which you want to delete:
+          <form action="" method="post"> 
+            <div class="data_item">
+              <label>Track Id</label>
+              <select required name="t_id">
+              <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT track_id FROM track');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['track_id'] . ">" . $row['track_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="insert_button">
+              <button name="delete">DELETE</button>
+            </div>
+            <?php             
+              if(isset($_POST['delete'])) {
+                $id = $_POST['t_id'];
+                include("connect.php");
+                try {
+                  $inse = $conn->query("DELETE FROM track
+                  WHERE `track`.`track_id` = $id");
+                  $conn->close();
+                } catch (Exception $e) {
+                  echo "<br>Could not delete.";
+                  $conn->close();
+                }
+              } 
+            ?>
+          </form>
+        </div>
+      </div>  
   
 
     <table>
