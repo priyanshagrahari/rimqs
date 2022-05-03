@@ -88,7 +88,74 @@
             ?>
           </form>
         </div>
-      
+        <!-- form for modify -->
+       <div class="popup_content m">
+          <label for="modify" class="close_button" title="Close">&#x2BBE;</label>
+          Select the Train ID and Station ID which you want to modify:
+          <form action="" method="post"> 
+            <div class="data_item">
+              <label>Train ID</label>
+              <select required name="t_id">
+              <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT train_id FROM train');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['train_id'] . ">" . $row['train_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+
+            <div class="data_item">
+              <label>Station ID</label>
+              <select required name="s_id">
+                <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT station_id FROM station');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="data_item">
+              <label>Arrival Time</label>
+              <input type="time" required name="a_time">
+            </div>
+            <div class="data_item">
+              <label>Halt Duration</label>
+              <input type="time" requied name="h_duration">
+            </div>
+            <div class="insert_button">
+              <button name="modify">MODIFY</button>
+            </div>
+            <?php 
+              if(isset($_POST['modify'])) {
+                $id_1 = $_POST['t_id'];
+                $id_2= $_POST['s_id'];
+                $time= date("H:i:s", strtotime($_POST['a_time']));
+                $duration= date("H:i:s",strtotime($_POST['h_duration']));
+                include("connect.php");
+                try {
+                  $inse = $conn->query("UPDATE `schedule`
+                  SET`arrival_time`=$time,`halt_duration`=$duration
+                  WHERE`schedule`.`train_id`=$id_1 AND`schedule`.`station_id`=$id_2");
+                  $conn->close();
+                } catch (Exception $e) {
+                  echo "<br>Could not modify.";
+                  $conn->close();
+                }
+              } 
+            ?>
+          </form>
+        </div>
+        
 
 
 
