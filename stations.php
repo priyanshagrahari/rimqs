@@ -15,13 +15,12 @@
         <label for="modify" class="popup_button">MODIFY</label>
         <input type="checkbox" id="delete" style="display:none;">
         <label for="delete" class="popup_button">DELETE</label>
-        <input type="checkbox" id="err" style="display:none;">
         
         <!-- form for insert -->
         <div class="popup_content i">
           <label for="insert" class="close_button" title="Close">&#x2BBE;</label>
           Enter data for the new entry: 
-          <form action="" method="post"> <!-- form starts -->
+          <form action="stations.php" method="post"> <!-- form starts -->
             <div class="data_item">
               <label>Station ID</label>
               <input type="number" required name="s_id">
@@ -53,17 +52,14 @@
                   $inse = $conn->query("INSERT INTO station (station_id, station_name, num_platforms, is_open) 
                   VALUES ('$id', '$name', '$num', '$is_op')");
                   $conn->close();
-                  header("Location:stations.php");
-                  exit;
                 } catch (Exception $e) {
                   echo "
+                  <input type=\"checkbox\" id=\"err\" style=\"display:none;\">
                   <div class=\"error_box\">
-                    <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
+                  <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
                     Could not insert the entered data.<br>
                     Please check if the station id is unique or not.
-                  </div>"; 
-                  header("Location:stations.php");
-                  exit;
+                  </div>";
                 }
               } 
             ?>
@@ -73,7 +69,7 @@
         <!-- form for modify -->
         <div class="popup_content m">
           <label for="modify" class="close_button" title="Close">&#x2BBE;</label>
-          Enter data for the new entry: 
+          Select the Station ID which you want to modify: 
           <form action="" method="post">
             <div class="data_item">
               <label>Station ID</label>

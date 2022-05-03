@@ -46,7 +46,7 @@
   transform: translate(-50%, -50%);
 }
 #err:checked ~ .error_box {
-  display: none;
+  display:none;
 }
 
 .close_button {
