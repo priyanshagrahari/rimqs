@@ -2,19 +2,19 @@
 $currentPage= $_SERVER['SCRIPT_NAME'];
 echo ' 
 <div class="side-nav">' .
-    (($currentPage == '/rqs/stations.php') ? '<li class="current">' : '<li> <a title="Navigate to the STATIONS section" href="station.php">') .
+    (($currentPage == '/rqs/station.php') ? '<li class="current">' : '<li> <a title="Navigate to the STATIONS section" href="station.php">') .
     'STATIONS' .
-    (($currentPage == '/rqs/stations.php') ? '' : '</a>') .
+    (($currentPage == '/rqs/station.php') ? '' : '</a>') .
     '</li>' . 
 
-    (($currentPage == '/rqs/tracks.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRACKS section" href="track.php">') .
+    (($currentPage == '/rqs/track.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRACKS section" href="track.php">') .
     'TRACKS' .
-    (($currentPage == '/rqs/tracks.php') ? '' : '</a>') .
+    (($currentPage == '/rqs/track.php') ? '' : '</a>') .
     '</li>' .
     
-    (($currentPage == '/rqs/trains.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRAINS section" href="train.php">') .
+    (($currentPage == '/rqs/train.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRAINS section" href="train.php">') .
     'TRAINS' .
-    (($currentPage == '/rqs/trains.php') ? '' : '</a>') .
+    (($currentPage == '/rqs/train.php') ? '' : '</a>') .
     '</li>' .
 
     (($currentPage == '/rqs/schedule.php') ? '<li class="current">' : '<li> <a title="Navigate to the SCHEDULE section" href="schedule.php">') .
