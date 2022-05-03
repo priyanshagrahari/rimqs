@@ -28,7 +28,7 @@
             </div>
             <div class="data_item">
               <label>Station Name</label>
-              <input type="text" value="Name" required maxlength="30" name="s_name">
+              <input type="text" required maxlength="30" name="s_name">
             </div>
             <div class="data_item">
               <label>Number of Platforms</label>
@@ -62,10 +62,8 @@
                     Could not insert the entered data.<br>
                     Please check if the station id is unique or not.
                   </div>"; 
-                  if (isset($err)) {
-                    header("Location:stations.php");
-                    exit;
-                  }
+                  header("Location:stations.php");
+                  exit;
                 }
               } 
             ?>
