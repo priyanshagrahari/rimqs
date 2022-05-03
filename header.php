@@ -4,6 +4,7 @@
     <a href="base.php">Railway Query System</a>
     </h1>
     <title>RQS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
   ';
 ?>
