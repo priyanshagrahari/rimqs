@@ -201,8 +201,8 @@
               </select>
             </div>
             <div class="data_item">
-              <label>Value (Optional)</label>
-              <input type="text" name="term">
+              <label>Value</label>
+              <input type="text" required name="term">
             </div>
             <div class="insert_button">
               <button name="search">SEARCH</button>
