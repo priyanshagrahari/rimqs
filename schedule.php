@@ -28,10 +28,10 @@
               <select required name="t_id">
               <?php 
                   include("connect.php");
-                  $stmt = $conn->query('SELECT train_id FROM train');
+                  $stmt = $conn->query('SELECT * FROM train');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['train_id'] . ">" . $row['train_id'] . "</option>
+                      echo "<option value=" . $row['train_id'] . ">" . $row['train_name'] . ' (' . $row['train_id'] . ")</option>
                       ";
                     }
                   }
@@ -39,14 +39,14 @@
               </select>
             </div>
             <div class="data_item">
-              <label>Station Id</label>
+              <label>Station ID</label>
               <select required name="s_id">
                 <?php 
                   include("connect.php");
-                  $stmt = $conn->query('SELECT station_id FROM station');
+                  $stmt = $conn->query('SELECT * FROM station');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_name'] . ' (' . $row['station_id'] . ")</option>
                       ";
                     }
                   }
@@ -98,10 +98,10 @@
               <select required name="t_id">
               <?php 
                   include("connect.php");
-                  $stmt = $conn->query('SELECT train_id FROM train');
+                  $stmt = $conn->query('SELECT * FROM train');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['train_id'] . ">" . $row['train_id'] . "</option>
+                      echo "<option value=" . $row['train_id'] . ">" . $row['train_name'] . ' (' . $row['train_id'] . ")</option>
                       ";
                     }
                   }
@@ -114,10 +114,10 @@
               <select required name="s_id">
                 <?php 
                   include("connect.php");
-                  $stmt = $conn->query('SELECT station_id FROM station');
+                  $stmt = $conn->query('SELECT * FROM station');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_name'] . ' (' . $row['station_id'] . ")</option>
                       ";
                     }
                   }
@@ -161,8 +161,8 @@
 
       <table>
         <tr>
-          <th>Train Id</th>
-          <th>Station Id</th>
+          <th>Train</th>
+          <th>Station</th>
           <th>Arrival Time</th>
           <th>Halt Duration</th>
         </tr>
@@ -171,8 +171,25 @@
           $stmt = $conn->query('SELECT * FROM schedule');
           if ($stmt->num_rows > 0) {
             while ($row = $stmt->fetch_assoc()) {
-              echo "<tr><td>". $row["train_id"] . "</td><td>" . $row["station_id"] . "</td><td>" . $row["arrival_time"] . "</td>
-              <td>" . $row["halt_duration"] . "</td><td>" .  "</td>
+              $stmt_t = $conn->query('SELECT train_id, train_name FROM train');
+              $stmt_s = $conn->query('SELECT station_id, station_name FROM station');
+              $tname = '';
+              $sname = '';
+              while ($row_t = $stmt_t->fetch_assoc()) {
+                if ($row['train_id'] == $row_t['train_id']) {
+                  $tname = $row_t['train_name'];
+                  break;
+                }
+              }
+              while ($row_s = $stmt_s->fetch_assoc()) {
+                if ($row['station_id'] == $row_s['station_id']) {
+                  $sname = $row_s['station_name'];
+                  break;
+                }
+              }
+              echo "<tr><td>" . $tname . ' (' . $row["train_id"] . ")</td><td>" . 
+              $sname . ' (' . $row["station_id"] . ")</td><td>" . $row["arrival_time"] . "</td>
+              <td>" . $row["halt_duration"] . "</td>
               </tr>
               ";
             }
