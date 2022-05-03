@@ -22,9 +22,13 @@ routes of trains.
       </p>
       <p>
         To create a new query, click on the button below:
-      </p>
+      </p> <br>
       <input type="checkbox" id="query" style="display:none;">
       <label for="query" class="popup_button">QUERY</label>
+      <div class="popup_content q">
+        <label for="query" class="close_button" title="Close">&#x2BBE;</label>
+        sample text 
+      </div>
     </div>
   </body>
 

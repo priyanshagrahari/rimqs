@@ -37,6 +37,9 @@
 #delete:checked ~ .d {
   display: block;
 }
+#query:checked ~ .q {
+  display: block;
+}
 
 .error_box {
   display: block;
