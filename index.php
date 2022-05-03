@@ -27,7 +27,24 @@ routes of trains.
       <label for="query" class="popup_button">QUERY</label>
       <div class="popup_content q">
         <label for="query" class="close_button" title="Close">&#x2BBE;</label>
-        sample text 
+        Select the field(s) you want to display in the query:
+        <form action="" method="post">
+            <div class="data_item">
+              <label>Fields</label>
+              <select required name="s_id">
+                <?php 
+                  include("connect.php");
+                  $stmt = $conn->query('SELECT station_id FROM station');
+                  if ($stmt->num_rows > 0) {
+                    while ($row = $stmt->fetch_assoc()) {
+                      echo "<option value=" . $row['station_id'] . ">" . $row['station_id'] . "</option>
+                      ";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+        </form>
       </div>
     </div>
   </body>

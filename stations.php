@@ -15,6 +15,8 @@
         <label for="modify" class="popup_button">MODIFY</label>
         <input type="checkbox" id="delete" style="display:none;">
         <label for="delete" class="popup_button">DELETE</label>
+        <input type="checkbox" id="search" style="display:none;">
+        <label for="search" class="popup_button">SEARCH</label>
         
         <!-- form for insert -->
         <div class="popup_content i">
@@ -161,6 +163,33 @@
                 }
               } 
             ?>
+          </form>
+        </div>
+
+        <!-- form for search -->
+        <div class="popup_content s">
+          <label for="search" class="close_button" title="Close">&#x2BBE;</label>
+          Select the field you want search for: 
+          <form action="query.php" method="post">
+            <input type="text" value="station" name="table" style="display:none;">
+            <div class="data_item">
+              <label>Field</label>
+              <select required name="sea">
+                <option value="id">Station ID</option>
+                <option value="name">Station Name</option>
+                <option value="num_more">Number of Platforms (more than)</option>
+                <option value="num_less">Number of Platforms (less than)</option>
+                <option value="isop">Is Open</option>
+                <option value="iscl">Is Closed</option>
+              </select>
+            </div>
+            <div class="data_item">
+              <label>Value (Optional)</label>
+              <input type="text" name="term">
+            </div>
+            <div class="insert_button">
+              <button name="search">SEARCH</button>
+            </div>
           </form>
         </div>
       </div>
