@@ -2,17 +2,17 @@
 $currentPage= $_SERVER['SCRIPT_NAME'];
 echo ' 
 <div class="side-nav">' .
-    (($currentPage == '/rqs/stations.php') ? '<li class="current">' : '<li> <a title="Navigate to the STATIONS section" href="stations.php">') .
+    (($currentPage == '/rqs/stations.php') ? '<li class="current">' : '<li> <a title="Navigate to the STATIONS section" href="station.php">') .
     'STATIONS' .
     (($currentPage == '/rqs/stations.php') ? '' : '</a>') .
     '</li>' . 
 
-    (($currentPage == '/rqs/tracks.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRACKS section" href="tracks.php">') .
+    (($currentPage == '/rqs/tracks.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRACKS section" href="track.php">') .
     'TRACKS' .
     (($currentPage == '/rqs/tracks.php') ? '' : '</a>') .
     '</li>' .
     
-    (($currentPage == '/rqs/trains.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRAINS section" href="trains.php">') .
+    (($currentPage == '/rqs/trains.php') ? '<li class="current">' : '<li> <a title="Navigate to the TRAINS section" href="train.php">') .
     'TRAINS' .
     (($currentPage == '/rqs/trains.php') ? '' : '</a>') .
     '</li>' .
