@@ -77,7 +77,7 @@
                 <div class=\"error_box\">
                 <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
                   Could not insert the entered data.<br>
-                  Please check if the track  id is unique or not.
+                  Please check if the track id is unique or not.
                 </div>";
                 $conn->close();
               }
@@ -151,7 +151,13 @@
                 WHERE `track`.`track_id` = $id");
                 $conn->close();
               } catch (Exception $e) {
-                echo "<br>Could not modify.";
+                echo "
+                  <input type=\"checkbox\" id=\"err\" style=\"display:none;\">
+                  <div class=\"error_box\">
+                  <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
+                    Could not modify.<br>
+                    Please check the new entries.
+                  </div>";
                 $conn->close();
               }
             } 
@@ -191,7 +197,12 @@
                   WHERE `track`.`track_id` = $id");
                   $conn->close();
                 } catch (Exception $e) {
-                  echo "<br>Could not delete.";
+                  echo "
+                  <input type=\"checkbox\" id=\"err\" style=\"display:none;\">
+                  <div class=\"error_box\">
+                  <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
+                    Could not delete.
+                  </div>";
                   $conn->close();
                 }
               } 

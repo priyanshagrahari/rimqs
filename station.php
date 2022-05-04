@@ -118,7 +118,13 @@
                   WHERE `station`.`station_id` = $id");
                   $conn->close();
                 } catch (Exception $e) {
-                  echo "<br>Could not modify.";
+                  echo "
+                  <input type=\"checkbox\" id=\"err\" style=\"display:none;\">
+                  <div class=\"error_box\">
+                  <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
+                    Could not modify.<br>
+                    Please check the new entries.
+                  </div>";
                   $conn->close();
                 }
               } 
@@ -158,7 +164,12 @@
                   WHERE `station`.`station_id` = $id");
                   $conn->close();
                 } catch (Exception $e) {
-                  echo "<br>Could not delete.";
+                  echo "
+                  <input type=\"checkbox\" id=\"err\" style=\"display:none;\">
+                  <div class=\"error_box\">
+                  <label for=\"err\" class=\"close_button\" title=\"Close\">&#x2BBE;</label>
+                    Could not delete.
+                  </div>";
                   $conn->close();
                 }
               } 
