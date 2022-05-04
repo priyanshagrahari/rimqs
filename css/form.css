@@ -44,9 +44,6 @@
 #search:checked ~ .s {
   display: block;
 }
-#query:checked ~ .q {
-  display: block;
-}
 
 .error_box {
   display: block;
@@ -76,7 +73,7 @@
 
 .data_item {
   margin: 40px 0px;
-  height: 45px;
+  height: 40px;
   width: 100%;
 }
 
@@ -91,6 +88,14 @@
   border: 2px solid white;
   color: #fff;
   background-color: #000;
+}
+
+.display {
+  height: auto;
+  width: auto;
+  text-align: right;
+  margin-bottom: -55px;
+  font-size:12px;
 }
 
 .data_item input:focus {
@@ -121,4 +126,8 @@ button {
 button:hover {
   border-color: rgb(194, 194, 10);
   background-color: rgb(194, 194, 10);
+}
+
+.q button {
+  width:initial;
 }
