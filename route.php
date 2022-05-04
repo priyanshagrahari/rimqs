@@ -29,7 +29,7 @@
                   $stmt = $conn->query('SELECT * FROM train');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['train_id'] . ">" . $row['train_id'] . "</option>
+                      echo "<option value=" . $row['train_id'] . ">" . $row['train_name'] . " (" . $row['train_id'] . ")</option>
                       ";
                     }
                   }
@@ -44,7 +44,22 @@
                   $stmt = $conn->query('SELECT * FROM track');
                   if ($stmt->num_rows > 0) {
                     while ($row = $stmt->fetch_assoc()) {
-                      echo "<option value=" . $row['track_id'] . ">" . $row['track_id'] . "</option>
+                      $stmt_tr = $conn->query('SELECT * FROM track');
+                      $trname = '';
+                      while ($row_tr = $stmt_tr->fetch_assoc()) {
+                        if ($row_tr['track_id'] == $row['track_id']) {
+                          $stmt_s = $conn->query('SELECT station_id, station_name FROM station');
+                          $stn_1 = '';
+                          $stn_2 = '';
+                          while ($row_s = $stmt_s->fetch_assoc()) {
+                            if ($row_s["station_id"] == $row_tr["station_id_1"]) $stn_1 = $row_s["station_name"];
+                            if ($row_s["station_id"] == $row_tr["station_id_2"]) $stn_2 = $row_s["station_name"];
+                          }
+                          $trname = $stn_1 . ' - ' . $stn_2;
+                          break;
+                        }
+                      }
+                      echo "<option value=" . $row['track_id'] . ">" . $trname . " (" . $row['track_id'] . ")</option>
                       ";
                     }
                   }
