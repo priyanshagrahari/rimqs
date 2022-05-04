@@ -206,6 +206,72 @@
           }
           $conn->close();
         }
+
+        if ($_POST['table'] == "route") {
+          echo "
+          <tr>
+            <th>Train</th>
+            <th>Track</th>
+            <th>Time</th>
+          </tr> ";
+          include("connect.php");
+          $s_q = "SELECT DISTINCT route.train_id, route.track_id, route.time FROM route, station, train, track WHERE ";
+          if ($_POST['sea'] == "tn") {
+            $s_q = $s_q . "route.train_id = train.train_id AND train.train_name LIKE '%" . $_POST['term'] . "%'";
+          }
+          if ($_POST['sea'] == "tid") {
+            $s_q = $s_q . "route.train_id = " . $_POST['term'];
+          }
+          if ($_POST['sea'] == "trn") {
+            $s_q = $s_q . "route.track_id = track.track_id AND ((station.station_id = track.station_id_1 AND station.station_name LIKE '%" . $_POST['term'] . 
+            "%') OR (station.station_id = track.station_id_2 AND station.station_name LIKE '%" . $_POST['term'] . "%'))";
+          }
+          if ($_POST['sea'] == "tri") {
+            $s_q = $s_q . "route.track_id = '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "teq") {
+            $s_q = $s_q . "route.time = '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "tbe") {
+            $s_q = $s_q . "route.time < '" . $_POST['term'] . "'";
+          }
+          if ($_POST['sea'] == "taf") {
+            $s_q = $s_q . "route.time > '" . $_POST['term'] . "'";
+          }
+          $stmt = $conn->query($s_q);
+          if ($stmt->num_rows > 0) {
+            while ($row = $stmt->fetch_assoc()) {
+              $tname = '';
+            $trname = '';
+            $stmt_t = $conn->query('SELECT train_id, train_name FROM train');
+            while ($row_t = $stmt_t->fetch_assoc()) {
+              if ($row_t['train_id'] == $row['train_id']) {
+                $tname = $row_t['train_name'];
+                break;
+              }
+            }
+            $stmt_tr = $conn->query('SELECT * FROM track');
+            while ($row_tr = $stmt_tr->fetch_assoc()) {
+              if ($row_tr['track_id'] == $row['track_id']) {
+                $stmt_s = $conn->query('SELECT station_id, station_name FROM station');
+                $stn_1 = '';
+                $stn_2 = '';
+                while ($row_s = $stmt_s->fetch_assoc()) {
+                  if ($row_s["station_id"] == $row_tr["station_id_1"]) $stn_1 = $row_s["station_name"];
+                  if ($row_s["station_id"] == $row_tr["station_id_2"]) $stn_2 = $row_s["station_name"];
+                }
+                $trname = $stn_1 . ' - ' . $stn_2;
+                break;
+              }
+            }
+            echo "<tr><td>". $tname . ' (' . $row["train_id"] . ")</td><td>" . 
+            $trname . ' (' . $row["track_id"] . ")</td><td>" . $row["time"] . "</td>
+            </tr>
+            ";
+            }
+          }
+          $conn->close();
+        }
       ?>
       </table>
     </div>
